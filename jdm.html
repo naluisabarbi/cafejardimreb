@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano Estratégico - Café Jardim 2.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Earthy Neutral -->
+    <!-- Application Structure Plan: A estrutura escolhida é um dashboard de rolagem de página única com seções temáticas e navegação fixa. Esta abordagem permite uma exploração não linear do plano de negócios, sendo mais flexível e moderna que uma apresentação de slides. Os usuários podem ter uma visão geral ou aprofundar-se em áreas específicas como marketing ou expansão. O núcleo interativo é a seção "Estratégia 360°", que utiliza um sistema de abas para organizar as principais iniciativas de forma clara e concisa, melhorando a usabilidade e a absorção da informação. -->
+    <!-- Visualization & Content Choices: 
+        - Meta de Expansão -> Objetivo: Informar/Comparar -> Visualização: Gráfico de Barras (Chart.js) comparando grandes capitais com base em uma projeção de consumo -> Interação: Tooltips no gráfico -> Justificativa: Fornece uma visualização mais realista e detalhada da estratégia, mostrando a distribuição de lojas de forma mais inteligente e alinhada ao potencial de mercado de cada cidade.
+        - Pilares da Estratégia -> Objetivo: Organizar/Informar -> Apresentação: Abas interativas (JS) -> Interação: Clique para revelar conteúdo -> Justificativa: Condensa múltiplos pilares estratégicos em um componente compacto, evitando sobrecarga de informação e promovendo a descoberta pelo usuário.
+        - Promessa de Marca -> Objetivo: Informar -> Apresentação: Cartões com ícones (HTML/Tailwind) -> Interação: Estático -> Justificativa: Comunica os valores fundamentais da nova marca (sustentabilidade, comunidade) de forma rápida e visual.
+        - Novos Produtos -> Objetivo: Informar -> Apresentação: Grade visual de produtos (HTML/Tailwind) -> Interação: Estático -> Justificativa: Exibe a nova linha de produtos de maneira atraente e clara.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F9F5F2; 
+            color: #4A4A4A;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #6B4F4B;
+            border-bottom-color: #6B4F4B;
+        }
+        .tab-btn {
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            background-color: #6B4F4B;
+            color: #FFFFFF;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-[#6B4F4B]">Café Jardim 2.0</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#vision" class="nav-link px-3 py-2 rounded-md text-sm font-medium">A Visão</a>
+                        <a href="#strategy" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Estratégia</a>
+                        <a href="#products" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Produtos</a>
+                        <a href="#expansion" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Expansão</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="py-20 md:py-32 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl md:text-6xl font-bold tracking-tight text-[#6B4F4B]">Sabor, Comunidade e Sustentabilidade.</h2>
+                <p class="mt-4 text-lg md:text-xl text-gray-600">Uma nova marca para um novo mundo. Bem-vindo ao futuro do Café Jardim.</p>
+            </div>
+        </section>
+
+        <section id="vision" class="py-16 sm:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-[#6B4F4B]">Uma Nova Visão com Propósito</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">O mercado busca mais que café; busca marcas com valores. Nossa resposta é um rebranding focado em transformar o Café Jardim em um símbolo de qualidade, comunidade e responsabilidade ambiental.</p>
+                </div>
+                <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    <div class="bg-white p-8 rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-[#E8DED1] text-[#6B4F4B]">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path></svg>
+                        </div>
+                        <h3 class="mt-6 text-xl font-bold text-[#6B4F4B]">Embalagens Retornáveis</h3>
+                        <p class="mt-2 text-base text-gray-600">Incentivamos a economia circular. Clientes que retornam as embalagens para compra a granel são recompensados, reduzindo o lixo e fortalecendo a fidelidade.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-[#E8DED1] text-[#6B4F4B]">
+                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="mt-6 text-xl font-bold text-[#6B4F4B]">Embalagens Biodegradáveis</h3>
+                        <p class="mt-2 text-base text-gray-600">Nossa nova linha de embalagens se decompõe naturalmente, minimizando nosso impacto ambiental e oferecendo uma opção consciente para os consumidores.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg transform hover:-translate-y-2 transition-transform duration-300 md:col-span-2 lg:col-span-1">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-[#E8DED1] text-[#6B4F4B]">
+                           <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <h3 class="mt-6 text-xl font-bold text-[#6B4F4B]">Criação de Comunidade</h3>
+                        <p class="mt-2 text-base text-gray-600">Nossas lojas serão mais que cafeterias; serão pontos de encontro para trabalho, leitura e socialização, construindo uma comunidade forte em torno da marca.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy" class="py-16 sm:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="lg:text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-[#6B4F4B]">Estratégia 360°: Nosso Plano de Ação</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Para dar vida à nossa visão, desenvolvemos uma estratégia integrada que abrange marketing, fidelização e inovação. Explore cada pilar para entender como vamos crescer e engajar.</p>
+                </div>
+
+                <div class="mt-12 max-w-3xl mx-auto">
+                    <div class="flex justify-center space-x-2 sm:space-x-4 p-1 bg-gray-200 rounded-xl">
+                        <button class="tab-btn w-full py-2.5 text-sm sm:text-base font-medium leading-5 rounded-lg focus:outline-none active" data-tab="marketing">Marketing</button>
+                        <button class="tab-btn w-full py-2.5 text-sm sm:text-base font-medium leading-5 rounded-lg focus:outline-none" data-tab="loyalty">Fidelidade</button>
+                        <button class="tab-btn w-full py-2.5 text-sm sm:text-base font-medium leading-5 rounded-lg focus:outline-none" data-tab="innovation">Inovação</button>
+                    </div>
+
+                    <div class="mt-8">
+                        <div id="marketing" class="tab-content p-6 bg-gray-50 rounded-lg">
+                            <h3 class="text-xl font-bold text-[#6B4F4B]">Conectando Pessoas e Histórias</h3>
+                            <ul class="mt-4 space-y-4 text-gray-600 list-disc list-inside">
+                                <li><strong>Marketing de Influência:</strong> Parcerias estratégicas com influenciadores que compartilham nossos valores de ética e sustentabilidade para ampliar nosso alcance.</li>
+                                <li><strong>Campanhas de Lançamento:</strong> Eventos exclusivos com degustações e coquetéis para gerar buzz, atrair mídia e apresentar a nova identidade da marca ao público.</li>
+                                <li><strong>Comunidade Ativa:</strong> Nossas lojas serão palco de eventos e workshops, transformando clientes em embaixadores da marca e criando conteúdo orgânico.</li>
+                            </ul>
+                        </div>
+                        <div id="loyalty" class="tab-content p-6 bg-gray-50 rounded-lg hidden">
+                            <h3 class="text-xl font-bold text-[#6B4F4B]">Recompensando o Consumo Consciente</h3>
+                             <ul class="mt-4 space-y-4 text-gray-600 list-disc list-inside">
+                                <li><strong>30% OFF com Copo Reutilizável:</strong> Clientes que trouxerem sua caneca ou copo Café Jardim ganham 30% de desconto no café selecionado, incentivando o reuso diário.</li>
+                                <li><strong>20% OFF com Embalagem de Retorno:</strong> Ao devolver a embalagem original para comprar café a granel, o cliente recebe 20% de desconto, fechando o ciclo sustentável.</li>
+                                <li><strong>Programa de Pontos:</strong> Futura implementação de um programa de pontos que recompensa a frequência e a participação em nossas iniciativas sustentáveis.</li>
+                            </ul>
+                        </div>
+                        <div id="innovation" class="tab-content p-6 bg-gray-50 rounded-lg hidden">
+                            <h3 class="text-xl font-bold text-[#6B4F4B]">Inovando em Sabor e Conveniência</h3>
+                            <ul class="mt-4 space-y-4 text-gray-600 list-disc list-inside">
+                                <li><strong>Expansão de Cardápio:</strong> Lançamento de um cardápio completo de cafeteria, assinado por um chef especialista, para criar uma experiência gastronômica única.</li>
+                                <li><strong>Novos Formatos:</strong> Introdução de cafés gelados prontos para beber e cápsulas compatíveis, levando o sabor do Café Jardim para mais momentos do dia a dia do consumidor.</li>
+                                <li><strong>Tecnologia na Experiência:</strong> Aplicativo móvel para pedidos, pagamentos e acesso a promoções exclusivas, melhorando a conveniência e personalizando o atendimento.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="py-16 sm:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-[#6B4F4B]">Café Jardim na Sua Rotina</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Para acompanhar todos os momentos, lançamos uma nova linha de produtos que combina conveniência e o sabor que você já conhece. Apresentamos nossos cafés gelados e em cápsulas.</p>
+                </div>
+                <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                        <h3 class="text-xl font-bold text-[#6B4F4B]">Suave</h3>
+                        <p class="mt-2 text-gray-600">Um blend equilibrado e leve, perfeito para um momento de relaxamento. Disponível em cápsula e versão gelada pronta para beber.</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                        <h3 class="text-xl font-bold text-[#6B4F4B]">Tradicional</h3>
+                        <p class="mt-2 text-gray-600">O sabor clássico do Café Jardim, com corpo e aroma marcantes. Ideal para começar o dia, em cápsula ou gelado.</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                        <h3 class="mt-6 text-xl font-bold text-[#6B4F4B]">Expresso</h3>
+                        <p class="mt-2 text-gray-600">Intenso e encorpado, para quem precisa de uma dose extra de energia. Experimente em cápsula ou na nossa versão gelada.</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center">
+                        <h3 class="mt-6 text-xl font-bold text-[#6B4F4B]">Cappuccino</h3>
+                        <p class="mt-2 text-gray-600">A cremosidade e o equilíbrio perfeito entre café, leite e chocolate. Uma delícia em cápsula ou pronta para beber bem gelada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="expansion" class="py-16 sm:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-[#6B4F4B]">O Futuro é Nacional: Nossa Expansão</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">Nossa visão de futuro é ambiciosa. Queremos levar a experiência Café Jardim para todos os cantos do Brasil, adaptando nossa presença ao potencial de cada mercado, de grandes capitais a cidades de interior.</p>
+                </div>
+                <div class="mt-16 grid gap-8 lg:grid-cols-2 items-center">
+                    <div class="space-y-8">
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                             <p class="text-5xl font-bold text-[#6B4F4B]">60+</p>
+                             <p class="mt-2 text-xl font-semibold text-gray-700">Lojas em São Paulo</p>
+                             <p class="mt-1 text-gray-600">Projeção para São Paulo, onde o alto consumo demanda uma presença robusta da marca.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                             <p class="text-5xl font-bold text-[#6B4F4B]">1 por Cidade</p>
+                             <p class="mt-2 text-xl font-semibold text-gray-700">Meta Nacional</p>
+                             <p class="mt-1 text-gray-600">Nossa meta é ter pelo menos uma loja-conceito em cada cidade brasileira, combinando cafeteria e conveniência.</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="expansionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-[#6B4F4B] text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl font-bold">Café Jardim 2.0</h2>
+            <p class="mt-2">Sabor que se conecta, marca que inspira.</p>
+            <p class="mt-4 text-sm text-gray-300">&copy; 2025 Café Jardim. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.dataset.tab;
+
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        if (content.id === tabId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('main section');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.4
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            const cityData = [
+                { city: 'São Paulo', stores: 60, color: '#6B4F4B' },
+                { city: 'Rio de Janeiro', stores: 45, color: '#A4B494' },
+                { city: 'Belo Horizonte', stores: 25, color: '#6B4F4B' },
+                { city: 'Brasília', stores: 7, color: '#A4B494' },
+                { city: 'Salvador', stores: 15, color: '#6B4F4B' },
+                { city: 'Curitiba', stores: 10, color: '#A4B494' }
+            ];
+
+            const ctx = document.getElementById('expansionChart').getContext('2d');
+            const expansionChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: cityData.map(d => d.city),
+                    datasets: [{
+                        label: 'Lojas Planejadas (Projeção)',
+                        data: cityData.map(d => d.stores),
+                        backgroundColor: cityData.map(d => d.color),
+                        borderColor: cityData.map(d => d.color),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Número de Lojas'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                       label += context.parsed.y;
+                                    }
+                                    return label;
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Projeção de Lojas em Grandes Capitais (2030)'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
